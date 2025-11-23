@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="m-0">Events</h3>
+    <a href="/add_event" class="btn btn-primary">Add Event</a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <table class="table table-striped mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>S.No</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody id="eventTable">
+                {% for e in datas %}
+                <tr data-allocated="{{ e.total_resources }}">
+                    <td>{{ loop.index }}</td>
+                    <td>{{ e.title }}</td>
+                    <td>{{ e.description }}</td>
+                    <td>{{ e.start_time }}</td>
+                    <td>{{ e.end_time }}</td>
+                    <td>
+                        <a href="/edit_event/{{ e.id }}" class="btn btn-sm btn-outline-primary">Edit</a>
+                    </td>
+                    <td>
+                        <a href="/delete_event/{{ e.id }}" class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Delete this event?');">
+                           Delete
+                        </a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7" class="text-center p-4">No events found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const eventInput = document.getElementById("searchEvent");
+    const dateInput = document.getElementById("searchDate");
+
+    const allocatedCheck = document.getElementById("allocatedCheck");
+    const unallocatedCheck = document.getElementById("unallocatedCheck");
+
+    const rows = document.querySelectorAll("#eventTable tr");
+
+    function filterTable() {
+
+        const nameVal = eventInput.value.toLowerCase();
+        const dateVal = dateInput.value;  
+
+        const allocated = allocatedCheck.checked;
+        const unallocated = unallocatedCheck.checked;
+
+        rows.forEach(row => {
+            const title = row.children[1].innerText.toLowerCase();
+            const startDate = row.children[3].innerText.substring(0, 10);
+            const totalResources = parseInt(row.dataset.allocated);
+            let show = true;
+
+            if (nameVal && !title.startsWith(nameVal)) show = false;
+
+            if (dateVal && startDate !== dateVal) show = false;
+
+            if (allocated && totalResources === 0) show = false;
+
+            if (unallocated && totalResources > 0) show = false;
+
+            row.style.display = show ? "" : "none";
+        });
+    }
+    
+    allocatedCheck.addEventListener("change", () => {
+        if (allocatedCheck.checked) unallocatedCheck.checked = false;
+        filterTable();
+    });
+
+    unallocatedCheck.addEventListener("change", () => {
+        if (unallocatedCheck.checked) allocatedCheck.checked = false;
+        filterTable();
+    });
+
+    eventInput.addEventListener("input", filterTable);
+    dateInput.addEventListener("change", filterTable);
+
+});
+</script>
+
+{% endblock %}

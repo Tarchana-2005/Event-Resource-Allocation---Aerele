@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3 class="mb-3">Edit Allocation</h3>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Select Resources</label>
+                <div class="dropdown">
+                    <button class="btn btn-light border dropdown-toggle w-100 text-start"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside"
+                            id="resourceDropdown">
+                        Select Resources
+                    </button>
+
+                    <ul class="dropdown-menu w-100 p-2" style="max-height:250px;overflow-y:auto;">
+
+                        {% for r in all_resources %}
+                        <li>
+                            <label class="d-flex align-items-center gap-2 px-2 py-1">
+                                <input 
+                                    type="checkbox"
+                                    name="resource_ids"
+                                    value="{{ r.id }}"
+                                    class="form-check-input resource-check"
+                                    {% if r.id|string in allocated_ids %} checked {% endif %}
+                                >
+                                <span>{{ r.name }} ({{ r.resource_type }})</span>
+                            </label>
+                        </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="/allocation_details/{{ event.id }}" class="btn btn-secondary">Cancel</a>
+
+        </form>
+
+    </div>
+</div>
+
+<script>
+    function updateDropdownLabel() {
+        const checks = document.querySelectorAll(".resource-check:checked");
+        const btn = document.getElementById("resourceDropdown");
+
+        if (checks.length === 0) {
+            btn.textContent = "Select Resources";
+        } else {
+            let names = [];
+            checks.forEach(c => names.push(c.parentElement.innerText.trim()));
+            btn.textContent = names.join(", ");
+        }
+    }
+
+    document.querySelectorAll(".resource-check").forEach(chk => {
+        chk.addEventListener("change", updateDropdownLabel);
+    });
+
+    updateDropdownLabel();
+</script>
+
+{% endblock %}

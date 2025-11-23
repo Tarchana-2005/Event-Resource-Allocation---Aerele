@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="m-0">Resources</h3>
+    <a href="/add_resource" class="btn btn-primary">Add Resource</a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <table class="table table-striped mb-0">
+            <thead class="table-light">
+    <tr>
+        <th>S.No</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Details</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+</thead>
+<tbody>
+    {% for r in datas %}
+    <tr>
+        <td>{{loop.index}}</td>
+        <td>{{ r.name }}</td>
+        <td>{{ r.resource_type }}</td>
+        <td>{{ r.details }}</td>
+        <td>
+           <a href="/edit_resource/{{ r.id }}" class="btn btn-sm btn-outline-primary">Edit</a>
+        </td>
+        <td>
+            <a href="/delete_resource/{{ r.id }}" class="btn btn-sm btn-outline-danger"
+       onclick="return confirm('Are you sure you want to delete this resource?');">
+       Delete
+    </a>
+            
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="5" class="text-center p-4">No resources added yet.</td>
+    </tr>
+    {% endfor %}
+</tbody>
+
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="m-0">Resource Usage Report</h3>
+</div>
+
+<div class="card shadow-sm mb-3">
+    <div class="card-body">
+        <form method="POST" class="row g-3">   {# changed to POST to match view #}
+
+            <div class="col-md-4">
+                <label class="form-label">Start Date</label>
+                <input type="date" name="start_date" class="form-control" value="{{ start_date }}">
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">End Date</label>
+                <input type="date" name="end_date" class="form-control" value="{{ end_date }}">
+            </div>
+
+            <div class="col-12">
+                <button class="btn btn-primary mt-2">Apply Filters</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <table class="table table-striped mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Resource</th>
+                    <th>Total Hours Used ({{ start_date }} - {{ end_date }})</th>
+                    <th>Upcoming Bookings</th>
+                </tr>
+            </thead>
+
+            <tbody id="reportTable">
+                {% for r in rows %}
+                <tr>
+                    <td class="res-name">{{ r.resource_name }} ({{ r.resource_type }})</td>
+                    <td>{{ r.range_hours | default('0 hr') }}</td>
+                    <td>{{ r.upcoming_bookings | default(0) }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="text-center p-4">No data available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById("searchResource");
+    if (!input) return; // guard — don't run if not present
+
+    const rows = document.querySelectorAll("#reportTable tr");
+
+    input.addEventListener("input", () => {
+        const val = input.value.trim().toLowerCase();
+        rows.forEach(row => {
+            const nameCell = row.querySelector(".res-name");
+            if (!nameCell) return;
+            const name = nameCell.innerText.toLowerCase();
+            row.style.display = (val === "" || name.startsWith(val)) ? "" : "none";
+        });
+    });
+});
+</script>
+
+{% endblock %}

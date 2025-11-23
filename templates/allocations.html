@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="m-0">Allocations</h3>
+    <a href="/add_allocation" class="btn btn-primary">Add Allocation</a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <table class="table table-striped mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>S.No</th>
+                    <th>Event</th>
+                    <th>Total Resources</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>View</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody id="eventTable">
+                {% for a in datas %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td class="event-name">{{ a.title }}</td>
+                    <td>{{ a.total_resources }}</td>
+                    <td class="start-date">{{ a.start_time }}</td>
+                    <td>{{ a.end_time }}</td>
+                    <td>
+                        <a href="/allocation_details/{{ a.id }}" class="btn btn-sm btn-primary">View</a>
+                    </td>
+                    <td>
+                        <a href="{{ url_for('delete_event_allocations', event_id=a.id) }}"class="btn btn-sm btn-danger"
+                        onclick="return confirm('Delete all allocations for this event? Event will stay.')">Delete
+                        </a>
+                    </td>
+
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center p-4 text-muted">
+                        No allocated events found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const eventInput = document.getElementById("searchEvent");
+    const dateInput = document.getElementById("searchDate");
+
+    const rows = document.querySelectorAll("#eventTable tr");
+
+    function filterTable() {
+        const eventVal = eventInput.value.toLowerCase();
+        const dateVal = dateInput.value;
+
+        rows.forEach(row => {
+            const eventText = row.querySelector(".event-name").innerText.toLowerCase();
+            const startDate = row.querySelector(".start-date").innerText.substring(0, 10);
+            let show = true;
+
+            if (eventVal && !eventText.startsWith(eventVal)) show = false;
+
+            if (dateVal && startDate !== dateVal) show = false;
+
+            row.style.display = show ? "" : "none";
+        });
+    }
+
+    eventInput.addEventListener("input", filterTable);
+    dateInput.addEventListener("change", filterTable);
+
+});
+</script>
+
+{% endblock %}

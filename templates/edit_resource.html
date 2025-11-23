@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h4>Edit Resource</h4>
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Resource Name</label>
+                <input type="text" class="form-control" name="name" value="{{ resource.name }}" >
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Type</label>
+                <select class="form-select" name="type" required>
+                    <option value="Room" {% if resource.resource_type == 'Room' %}selected{% endif %}>Room</option>
+                    <option value="Instructor" {% if resource.resource_type == 'Instructor' %}selected{% endif %}>Instructor</option>
+                    <option value="Equipment" {% if resource.resource_type == 'Equipment' %}selected{% endif %}>Equipment</option>
+                    <option value="Hall" {% if resource.resource_type == 'Hall' %}selected{% endif %}>Hall</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Details</label>
+                <textarea class="form-control" name="details" rows="3">{{ resource.details }}</textarea>
+            </div>
+
+            <button class="btn btn-primary">Update Resource</button>
+            <a href="/resources" class="btn btn-secondary">Cancel</a>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

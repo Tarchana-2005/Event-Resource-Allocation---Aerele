@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <h4>Edit Event</h4>
+
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input type="text" class="form-control" name="title"
+                       value="{{ event.title }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" name="description" rows="3">{{ event.description }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Start Time</label>
+                <input type="datetime-local" class="form-control" name="start_time"
+                       value="{{ event.start_time }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">End Time</label>
+                <input type="datetime-local" class="form-control" name="end_time"
+                       value="{{ event.end_time }}" required>
+            </div>
+
+            <button class="btn btn-primary">Update Event</button>
+            <a href="/events" class="btn btn-secondary">Cancel</a>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
