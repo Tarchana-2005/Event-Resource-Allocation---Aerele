@@ -14,15 +14,17 @@ The Add Resource page is used to create a new resource by entering details like 
 The added resource gets stored in the Resource table.
 <img width="1919" height="877" alt="image" src="https://github.com/user-attachments/assets/b94d9997-28de-4a68-8e5d-4eed925fcbf4" />
 
+This page allows you to assign a resource to a specific event. Select an event, choose the resource, and allocate it.
 <img width="1919" height="890" alt="Screenshot 2025-11-23 221622" src="https://github.com/user-attachments/assets/0c7935f4-3441-4414-922e-890b60d4b0e5" />
 
-
+This page shows all events with resources it is allocated and schedule. You can also view details or delete an allocation from here. 
 <img width="1919" height="884" alt="image" src="https://github.com/user-attachments/assets/b85f85d7-9551-4da1-9a31-1b824eadd844" />
 
-
+On click view, ALlocation Details page load. This page shows the full details of a selected event, including its title, description, start time, and end time.
+It also lists all the resources that have been allocated to that event.
 <img width="1919" height="884" alt="image" src="https://github.com/user-attachments/assets/15ade555-4746-4435-af94-1003f9c97ed9" />
 
-
+This page shows how much each resource was used within the selected date range. It also displays how many upcoming bookings each resource has.
 <img width="1919" height="883" alt="image" src="https://github.com/user-attachments/assets/80f42ae5-0c28-43a1-9cfa-ed12b4e33f8d" />
 
 
