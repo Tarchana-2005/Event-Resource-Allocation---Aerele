@@ -20,7 +20,7 @@ This page allows you to assign a resource to a specific event. Select an event, 
 This page shows all events with resources it is allocated and schedule. You can also view details or delete an allocation from here. 
 <img width="1919" height="884" alt="image" src="https://github.com/user-attachments/assets/b85f85d7-9551-4da1-9a31-1b824eadd844" />
 
-On click view, ALlocation Details page load. This page shows the full details of a selected event, including its title, description, start time, and end time.
+On click view, Allocation Details page load. This page shows the full details of a selected event, including its title, description, start time, and end time.
 It also lists all the resources that have been allocated to that event.
 <img width="1919" height="884" alt="image" src="https://github.com/user-attachments/assets/15ade555-4746-4435-af94-1003f9c97ed9" />
 
