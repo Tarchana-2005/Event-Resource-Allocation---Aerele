@@ -1,17 +1,17 @@
-The main of this project is to build a Flask-based Event Management System that allows users to create events and allocate resources without conflicts. It ensures smooth scheduling through smart validations and real-time availability checks.
+The main aim of this project is to build a Flask-based Event Scheduling & Resource Allocation System that allows users to create events and allocate resources without conflicts. It ensures smooth scheduling through smart validations and real-time availability checks.
 
 <img width="1915" height="881" alt="image" src="https://github.com/user-attachments/assets/5870cf7d-b12f-446c-b7e4-de939b097b14" />
 
 The Add Event page is used to create a new event by entering details like title, description, start time, and end time.
 <img width="1894" height="881" alt="image" src="https://github.com/user-attachments/assets/70aca5a4-5cc8-49b2-ba2d-dafe76efc6af" />
 
-The added event gets stored in the Events table.
+The added event gets stored in the Events table. You can also view details or delete an event from here.
 <img width="1917" height="881" alt="image" src="https://github.com/user-attachments/assets/9b47b16d-353c-4fd6-b7b3-d393b983c167" />
 
 The Add Resource page is used to create a new resource by entering details like resource name, resource type and resource detail.
 <img width="1917" height="879" alt="image" src="https://github.com/user-attachments/assets/d277185e-0a91-4d53-a33f-56022e19351a" />
 
-The added resource gets stored in the Resource table.
+The added resource gets stored in the Resource table. You can also view details or delete an resource from here.
 <img width="1919" height="877" alt="image" src="https://github.com/user-attachments/assets/b94d9997-28de-4a68-8e5d-4eed925fcbf4" />
 
 This page allows you to assign a resource to a specific event. Select an event, choose the resource, and allocate it.
